@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-# Pascal Triangle
+"""Pascal Triangle"""
+
 
 def pascal_triangle(n):
     """Pascal Triangle Calculator"""
