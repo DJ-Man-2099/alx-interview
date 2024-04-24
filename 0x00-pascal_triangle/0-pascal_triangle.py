@@ -6,8 +6,6 @@ def pascal_triangle(n):
     """Pascal Triangle Calculator"""
     result = []
     if n > 0:
-        # The First and last indices of each row are always 1
-        # the rest is equal to the previous row's index + the previous row's index - 1
         result.append([1])
         if n > 1:
             for i in range(1, n):
