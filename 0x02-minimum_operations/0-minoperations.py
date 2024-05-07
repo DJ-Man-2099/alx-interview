@@ -7,19 +7,32 @@ from math import sqrt
 
 def minOperations(n: int) -> int:
     """Returns the minimum operations to reach n characters in a text file"""
-    first_prime = 0
-    second_prime = 0
-    prime = True
     if n < 2 or not isinstance(n, int):
         return 0
     elif n == 2:
         return 2
-    for i in range(int(sqrt(n))+1, 1, -1):
-        if n % i == 0:
+    sum = 0
+    prime = True
+    while n % 2 == 0:
+        if prime:
             prime = False
-            first_prime = i
-            second_prime = int(n / i)
+        sum += 2
+        n /= 2
+    while n > 1:
+        n_not_changed = True
+        for i in range(int(sqrt(n))+1, 1, -1):
+            print(i)
+            if n % i == 0:
+                if prime:
+                    prime = False
+                if n_not_changed:
+                    n_not_changed = False
+                n /= i
+                sum += i
+                break
+        if n_not_changed:
+            sum += n
             break
     if prime:
-        return n
-    return int(first_prime + second_prime)
+        return int(n)
+    return int(sum)
