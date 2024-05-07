@@ -16,6 +16,6 @@ def minOperations(n: int) -> int:
             first_prime = i
             second_prime = n / i
             break
-    if first_prime == 0:
+    if first_prime == 0 and n != 0:
         return n
     return int(first_prime + second_prime)
