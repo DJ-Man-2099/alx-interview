@@ -18,7 +18,7 @@ def minOperations(n: int) -> int:
         if n % i == 0:
             prime = False
             first_prime = i
-            second_prime = n / i
+            second_prime = int(n / i)
             break
     if prime:
         return n
