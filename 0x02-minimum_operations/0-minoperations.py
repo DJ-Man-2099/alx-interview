@@ -20,8 +20,8 @@ def minOperations(n: int) -> int:
         n /= 2
     while n > 1:
         n_not_changed = True
-        for i in range(int(sqrt(n))+1, 1, -1):
-            print(i)
+        for i in range(int(sqrt(n))+1, 1, -2):
+            # print(i)
             if n % i == 0:
                 if prime:
                     prime = False
