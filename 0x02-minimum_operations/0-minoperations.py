@@ -17,13 +17,14 @@ def minOperations(n: any) -> int:
         n //= 2
     remainder_is_prime = True
     while n > 1:
-        for i in range(3, int(sqrt(n))+1, 2):
+        # for i in range(3, int(sqrt(n))+1, 2):
+        for i in range(3, n+1, 2):
             if n % i == 0:
                 if remainder_is_prime:
                     remainder_is_prime = False
                 sum += i
                 n //= i
-        if remainder_is_prime:
-            sum += n
-            break
+        # if remainder_is_prime:
+        #     sum += n
+        #     break
     return sum
