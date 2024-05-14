@@ -38,7 +38,7 @@ if __name__ == "__main__":
             if matches:
                 ip, date, status, file_size = matches.groups()
                 total_file_size += int(file_size)
-                if status in status_count:
+                if status in status_count.keys():
                     status_count[status] += 1
                 else:
                     status_count[status] = 1
