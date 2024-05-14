@@ -22,26 +22,38 @@ def print_summary(status_count, total_file_size):
 
 if __name__ == "__main__":
     import sys
-    import re
 
-    status_count = {}
-    total_file_size = 0
+    size = 0
+    status_codes = {}
+    valid_codes = ['200', '301', '400', '401', '403', '404', '405', '500']
     count = 0
 
     try:
         for line in sys.stdin:
-            matches = re.search(r"{} {} {} {} {} {}".format(*regexes), line)
-            if matches:
-                ip, date, status, file_size = matches.groups()
-                total_file_size += int(file_size)
-                if status in status_count:
-                    status_count[status] += 1
-                else:
-                    status_count[status] = 1
-            count += 1
             if count == 10:
-                print_summary(status_count, total_file_size)
-                count = 0
+                print_summary(size, status_codes)
+                count = 1
+            else:
+                count += 1
+
+            line = line.split()
+
+            try:
+                size += int(line[-1])
+            except (IndexError, ValueError):
+                pass
+
+            try:
+                if line[-2] in valid_codes:
+                    if status_codes.get(line[-2], -1) == -1:
+                        status_codes[line[-2]] = 1
+                    else:
+                        status_codes[line[-2]] += 1
+            except IndexError:
+                pass
+
+        print_summary(size, status_codes)
+
     except KeyboardInterrupt:
-        print_summary(status_count, total_file_size)
+        print_summary(size, status_codes)
         raise
