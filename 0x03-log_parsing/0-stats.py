@@ -35,21 +35,23 @@ if __name__ == "__main__":
                 print_summary(status_count, total_file_size)
                 count = 0
             line = line.split()
-            status, file_size = (line[-2], line[-1])
             try:
+                file_size = line[-1]
                 total_file_size += int(file_size)
-            except ValueError:
+            except (IndexError, ValueError):
                 pass
-            if status in ["200", "301", "400", "401", "403",
-                          "404", "405", "500"]:
-                if status_count.get(status, -1) == -1:
-                    status_count[status] += 1
-                else:
-                    status_count[status] = 1
+            try:
+                status = line[-2]
+                if status in ["200", "301", "400", "401", "403",
+                              "404", "405", "500"]:
+                    if status_count.get(status, -1) == -1:
+                        status_count[status] += 1
+                    else:
+                        status_count[status] = 1
+            except IndexError:
+                pass
 
         print_summary(status_count, total_file_size)
-    except IndexError:
-        pass
     except KeyboardInterrupt:
         print_summary(status_count, total_file_size)
         raise
