@@ -44,7 +44,7 @@ if __name__ == "__main__":
                 status = line[-2]
                 if status in ["200", "301", "400", "401", "403",
                               "404", "405", "500"]:
-                    if status_count.get(status, -1) == -1:
+                    if status in status_count.keys():
                         status_count[status] += 1
                     else:
                         status_count[status] = 1
