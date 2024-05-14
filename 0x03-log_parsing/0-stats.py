@@ -2,9 +2,9 @@
 """4th Project Module"""
 
 
-ip_regex = r'^\d{0,3}\.\d{0,3}\.\d{0,3}\.\d{0,3}'
+ip_regex = r'^(\d{0,3}\.\d{0,3}\.\d{0,3}\.\d{0,3})'
 dash_regex = r'-'
-date_regex = r'\[\d{4}\-\d{2}\-\d{2} \d{2}\:\d{2}\:\d+\.\d+\]'
+date_regex = r'\[(\d{4}\-\d{2}\-\d{2} \d{2}\:\d{2}\:\d+\.\d+)\]'
 request_regex = r'"GET \/projects\/260 HTTP\/1.1"'
 status_regex = r'(200|301|400|401|403|404|405|500)'
 file_size_regex = r'(\d+)$'
@@ -35,14 +35,20 @@ if __name__ == "__main__":
                 count = 1
             else:
                 count += 1
-            matches = re.search(r"{} {} {} {} {} {}".format(*regexes), line)
-            if matches:
-                status, file_size = matches.groups()
+            line = line.split()
+            try:
+                file_size = line[-1]
                 total_file_size += int(file_size)
-                if status in status_count:
+            except ValueError:
+                pass
+            status = line[-2]
+            if status in ["200", "301", "400", "401", "403",
+                          "404", "405", "500"]:
+                if status in status_count.keys():
                     status_count[status] += 1
                 else:
                     status_count[status] = 1
+
         print_summary(status_count, total_file_size)
     except KeyboardInterrupt:
         print_summary(status_count, total_file_size)
