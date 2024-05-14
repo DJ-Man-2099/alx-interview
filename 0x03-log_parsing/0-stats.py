@@ -14,10 +14,10 @@ regexes = [ip_regex, dash_regex, date_regex,
 
 def print_summary(total_file_size, status_count):
     """Prints the summary of the log parsing."""
-    print("File size: {}".format(total_file_size))
+    print(f"File size: {total_file_size}")
     sorted_keys = sorted(status_count.keys())
     for key in sorted_keys:
-        print("{}: {}".format(key, status_count[key]))
+        print(f"{key}: {status_count[key]}")
 
 
 if __name__ == "__main__":
