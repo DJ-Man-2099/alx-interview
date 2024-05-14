@@ -49,6 +49,7 @@ if __name__ == "__main__":
                         status_count[status] = 1
             except IndexError:
                 pass
+        print_summary(status_count, total_file_size)
     except KeyboardInterrupt:
         print_summary(status_count, total_file_size)
         raise
