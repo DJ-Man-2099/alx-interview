@@ -34,10 +34,15 @@ if __name__ == "__main__":
                 print_summary(status_count, total_file_size)
                 count = 0
             count += 1
-            matches = re.search(r"{} {} {} {} {} {}".format(*regexes), line)
-            if matches:
-                status, file_size = matches.groups()
+            # matches = re.search(r"{} {} {} {} {} {}".format(*regexes), line)
+            # if matches:
+            #     status, file_size = matches.groups()
+            line = line.split()
+            file_size = line[-1]
+            if re.search(r"{}".format(file_size_regex), file_size):
                 total_file_size += int(file_size)
+            status = line[-2]
+            if re.search(r"{}".format(status_regex), status):
                 if status in status_count:
                     status_count[status] += 1
                 else:
