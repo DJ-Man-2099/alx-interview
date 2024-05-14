@@ -16,7 +16,6 @@ status_regex = r'(200|301|400|401|403|404|405|500)'
 file_size_regex = r'(\d+)$'
 regexes = [ip_regex, dash_regex, date_regex,
            request_regex, status_regex, file_size_regex]
-log_regex = re.compile(r'{} {} {} {} {} {}'.format(*regexes))
 total_file_size = 0
 count = 0
 
@@ -32,8 +31,9 @@ signal(SIGINT, lambda signum, frame: print_summary(
     status_count, total_file_size))
 
 for line in sys.stdin:
-    if log_regex.match(line):
-        ip, date, status, file_size = log_regex.match(line).groups()
+    matches = re.search(r"{} {} {} {} {} {}".format(*regexes), line)
+    if matches:
+        ip, date, status, file_size = matches.groups()
         total_file_size += int(file_size)
         if status in status_count:
             status_count[status] += 1
