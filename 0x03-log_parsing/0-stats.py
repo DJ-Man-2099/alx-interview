@@ -13,10 +13,11 @@ regexes = [ip_regex, dash_regex, date_regex,
 
 
 def print_summary(status_count, total_file_size):
-    print(f"File size: {total_file_size}")
+    """Prints the summary of the log parsing."""
+    print("File size: {}".format(total_file_size))
     sorted_keys = sorted(status_count.keys())
     for key in sorted_keys:
-        print(f"{key}: {status_count[key]}")
+        print("{}: {}".format(key, status_count[key]))
 
 
 if __name__ == "__main__":
@@ -37,10 +38,10 @@ if __name__ == "__main__":
                     status_count[status] += 1
                 else:
                     status_count[status] = 1
-                count += 1
-                if count == 10:
-                    print_summary(status_count, total_file_size)
-                    count = 0
+            count += 1
+            if count == 10:
+                print_summary(status_count, total_file_size)
+                count = 0
     except KeyboardInterrupt:
         print_summary(status_count, total_file_size)
         raise
