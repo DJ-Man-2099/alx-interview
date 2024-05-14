@@ -32,18 +32,13 @@ if __name__ == "__main__":
         for line in sys.stdin:
             if count == 10:
                 print_summary(status_count, total_file_size)
-                count = 0
-            count += 1
-            # matches = re.search(r"{} {} {} {} {} {}".format(*regexes), line)
-            # if matches:
-            #     status, file_size = matches.groups()
-            line = line.split()
-            file_size = line[-1]
-            if re.search(r"{}".format(file_size_regex), file_size):
+                count = 1
+            else:
+                count += 1
+            matches = re.search(r"{} {} {} {} {} {}".format(*regexes), line)
+            if matches:
+                status, file_size = matches.groups()
                 total_file_size += int(file_size)
-            status = line[-2]
-            if status in ["200", "301", "400", "401", "403",
-                          "404", "405", "500"]:
                 if status in status_count:
                     status_count[status] += 1
                 else:
