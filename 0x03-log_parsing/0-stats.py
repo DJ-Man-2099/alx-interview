@@ -36,13 +36,19 @@ if __name__ == "__main__":
                 count = 0
             line = line.split()
             status, file_size = (line[-2], line[-1])
-            if re.search(r"{}".format(file_size_regex), file_size):
+            try:
                 total_file_size += int(file_size)
-            if re.search(r"{}".format(status_regex), status):
-                if status in status_count:
-                    status_count[status] += 1
-                else:
-                    status_count[status] = 1
+            except (IndexError, ValueError):
+                pass
+            try:
+                if status in ["200", "301", "400", "401", "403",
+                              "404", "405", "500"]:
+                    if status in status_count:
+                        status_count[status] += 1
+                    else:
+                        status_count[status] = 1
+            except IndexError:
+                pass
     except KeyboardInterrupt:
         print_summary(status_count, total_file_size)
         raise
