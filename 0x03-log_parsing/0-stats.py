@@ -42,3 +42,4 @@ for line in sys.stdin:
         count += 1
         if count == 10:
             print_summary(status_count, total_file_size)
+            count = 0
