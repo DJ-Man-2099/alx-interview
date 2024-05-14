@@ -12,7 +12,7 @@ regexes = [ip_regex, dash_regex, date_regex,
            request_regex, status_regex, file_size_regex]
 
 
-def print_summary(total_file_size, status_count):
+def print_summary(status_count, total_file_size):
     """Prints the summary of the log parsing."""
     print(f"File size: {total_file_size}")
     sorted_keys = sorted(status_count.keys())
@@ -22,38 +22,26 @@ def print_summary(total_file_size, status_count):
 
 if __name__ == "__main__":
     import sys
+    import re
 
-    size = 0
-    status_codes = {}
-    valid_codes = ['200', '301', '400', '401', '403', '404', '405', '500']
+    status_count = {}
+    total_file_size = 0
     count = 0
 
     try:
         for line in sys.stdin:
+            count += 1
             if count == 10:
-                print_summary(size, status_codes)
-                count = 1
-            else:
-                count += 1
-
-            line = line.split()
-
-            try:
-                size += int(line[-1])
-            except (IndexError, ValueError):
-                pass
-
-            try:
-                if line[-2] in valid_codes:
-                    if status_codes.get(line[-2], -1) == -1:
-                        status_codes[line[-2]] = 1
-                    else:
-                        status_codes[line[-2]] += 1
-            except IndexError:
-                pass
-
-        print_summary(size, status_codes)
-
+                print_summary(status_count, total_file_size)
+                count = 0
+            matches = re.search(r"{} {} {} {} {} {}".format(*regexes), line)
+            if matches:
+                ip, date, status, file_size = matches.groups()
+                total_file_size += int(file_size)
+                if status in status_count:
+                    status_count[status] += 1
+                else:
+                    status_count[status] = 1
     except KeyboardInterrupt:
-        print_summary(size, status_codes)
+        print_summary(status_count, total_file_size)
         raise
