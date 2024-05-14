@@ -12,7 +12,7 @@ regexes = [ip_regex, dash_regex, date_regex,
            request_regex, status_regex, file_size_regex]
 
 
-def print_summary(status_count, total_file_size):
+def print_summary(total_file_size, status_count):
     """Prints the summary of the log parsing."""
     print("File size: {}".format(total_file_size))
     sorted_keys = sorted(status_count.keys())
