@@ -38,18 +38,18 @@ if __name__ == "__main__":
             status, file_size = (line[-2], line[-1])
             try:
                 total_file_size += int(file_size)
-            except (IndexError, ValueError):
+            except ValueError:
                 pass
-            try:
-                if status in ["200", "301", "400", "401", "403",
-                              "404", "405", "500"]:
-                    if status_count.get(line[-2], -1) == -1:
-                        status_count[status] += 1
-                    else:
-                        status_count[status] = 1
-            except IndexError:
-                pass
+            if status in ["200", "301", "400", "401", "403",
+                          "404", "405", "500"]:
+                if status_count.get(status, -1) == -1:
+                    status_count[status] += 1
+                else:
+                    status_count[status] = 1
+
         print_summary(status_count, total_file_size)
+    except IndexError:
+        pass
     except KeyboardInterrupt:
         print_summary(status_count, total_file_size)
         raise
