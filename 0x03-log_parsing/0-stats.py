@@ -29,17 +29,17 @@ def print_summary(status_count, total_file_size):
 
 signal(SIGINT, lambda signum, frame: print_summary(
     status_count, total_file_size))
-
-for line in sys.stdin:
-    matches = re.search(r"{} {} {} {} {} {}".format(*regexes), line)
-    if matches:
-        ip, date, status, file_size = matches.groups()
-        total_file_size += int(file_size)
-        if status in status_count:
-            status_count[status] += 1
-        else:
-            status_count[status] = 1
-        count += 1
-        if count == 10:
-            print_summary(status_count, total_file_size)
-            count = 0
+if __name__ == "__main__":
+    for line in sys.stdin:
+        matches = re.search(r"{} {} {} {} {} {}".format(*regexes), line)
+        if matches:
+            ip, date, status, file_size = matches.groups()
+            total_file_size += int(file_size)
+            if status in status_count:
+                status_count[status] += 1
+            else:
+                status_count[status] = 1
+            count += 1
+            if count == 10:
+                print_summary(status_count, total_file_size)
+                count = 0
