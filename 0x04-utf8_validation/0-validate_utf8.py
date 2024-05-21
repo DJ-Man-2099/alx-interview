@@ -12,23 +12,25 @@ def len_1(c: int) -> bool:
     return c >> 7 == 0
 
 
-# def other_chars(c: int) -> bool: return c >> 6 == 2
+def other_chars(c: int) -> bool:
+    """checks other cases"""
+    return c >> 6 == 2
 
 
-# len_2 = [
-#     lambda c: c >> 5 == 6,
-#     *([other_chars]*1)
-# ]
+len_2 = [
+    lambda c: c >> 5 == 6,
+    *([other_chars]*1)
+]
 
-# len_3 = [
-#     lambda c: c >> 4 == 14,
-#     *([other_chars]*2)
-# ]
+len_3 = [
+    lambda c: c >> 4 == 14,
+    *([other_chars]*2)
+]
 
-# len_4 = [
-#     lambda c: c >> 3 == 30,
-#     *([other_chars]*3)
-# ]
+len_4 = [
+    lambda c: c >> 3 == 30,
+    *([other_chars]*3)
+]
 
 
 # def check_utf(chars: List) -> bool:
