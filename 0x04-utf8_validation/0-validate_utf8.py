@@ -23,7 +23,7 @@ len_2 = [
 ]
 
 len_3 = [
-    lambda c: c >> 4 == 14,
+    lambda c: c >> 4 == 0b1110,
     *([other_chars]*2)
 ]
 
