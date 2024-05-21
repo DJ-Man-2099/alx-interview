@@ -14,21 +14,21 @@ def len_1(c: int) -> bool:
 
 def other_chars(c: int) -> bool:
     """checks other cases"""
-    return c >> 6 == 0b10
+    return c >> 6 == 2
 
 
 len_2 = [
-    lambda c: c >> 5 == 0b110,
+    lambda c: c >> 5 == 6,
     *([other_chars]*1)
 ]
 
 len_3 = [
-    lambda c: c >> 4 == 0b1110,
+    lambda c: c >> 4 == 14,
     *([other_chars]*2)
 ]
 
 len_4 = [
-    lambda c: c >> 3 == 0b1110,
+    lambda c: c >> 3 == 30,
     *([other_chars]*3)
 ]
 
