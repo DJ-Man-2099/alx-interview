@@ -57,11 +57,8 @@ def check_utf(chars: List) -> bool:
 def try_to_validate(data: List[int], bytes_in_char: int) -> bool:
     """tries to validate each case"""
     number_of_chars = int(math.ceil(len(data)/bytes_in_char))
-    # check other chars
-    # check last char
-    # print(f"case number of bytes: {bytes_in_char}")
     chars = []
-    # data = list(reversed(data))
+    data = list(reversed(data))
     for i in range(number_of_chars):
         chars.append(data[i*bytes_in_char:(i+1)*bytes_in_char])
     for char in chars:
@@ -74,7 +71,8 @@ def try_to_validate(data: List[int], bytes_in_char: int) -> bool:
 
 def validUTF8(data: List[int]) -> bool:
     """determines if a given data set represents a valid UTF-8 encoding"""
-    for i in range(4, 0, -1):
+    size = len(data)
+    for i in range(min(size, 4), 0, -1):
         if try_to_validate(data, i):
             return True
 
