@@ -28,7 +28,7 @@ len_3 = [
 ]
 
 len_4 = [
-    lambda c: c >> 3 == 0b11110,
+    lambda c: c >> 3 == 0b1_1110,
     *([other_chars]*3)
 ]
 
@@ -70,6 +70,7 @@ def validUTF8(data: List[int]) -> bool:
         return True
 
     size = len(data)
+    # Focus on only the Least Significant Bytes
     data = list(map(lambda c: c & 0b1111_1111, data))
     max_bytes = min(size, 4)
     for i in range(max_bytes, 0, -1):
