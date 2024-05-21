@@ -115,7 +115,8 @@ def validUTF8(data: List[int]) -> bool:
                 byte_count -= 1
             else:
                 return False
-
+    if byte_count != 0:
+        return False
     return True
 
 
