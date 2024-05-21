@@ -49,32 +49,53 @@ def check_utf(chars: List) -> bool:
     return reduce(lambda x, y: x and y, answers)
 
 
-def try_to_validate(data: List[int], bytes_in_char: int) -> bool:
-    """tries to validate each case"""
-    number_of_chars = int(math.ceil(len(data)/bytes_in_char))
-    chars = []
-    for i in range(number_of_chars):
-        chars.append(data[i*bytes_in_char:(i+1)*bytes_in_char])
-    for char in chars:
-        result = check_utf(char)
-        if result is False:
-            return False
+# def try_to_validate(data: List[int], bytes_in_char: int) -> bool:
+#     """tries to validate each case"""
+#     number_of_chars = int(math.ceil(len(data)/bytes_in_char))
+#     chars = []
+#     for i in range(number_of_chars):
+#         chars.append(data[i*bytes_in_char:(i+1)*bytes_in_char])
+#     for char in chars:
+#         result = check_utf(char)
+#         if result is False:
+#             return False
 
-    return True
+#     return True
 
+
+# def validUTF8(data: List[int]) -> bool:
+#     """determines if a given data set represents a valid UTF-8 encoding"""
+#     if not data:
+#         return True
+
+#     # Focus on only the Least Significant Bytes
+#     data = list(map(lambda c: c & 0b1111_1111, data))
+
+#     size = len(data)
+#     max_bytes = min(size, 4)
+#     for i in range(max_bytes, 0, -1):
+#         if try_to_validate(data, i):
+#             return True
+
+#     return False
 
 def validUTF8(data: List[int]) -> bool:
     """determines if a given data set represents a valid UTF-8 encoding"""
     if not data:
         return True
 
-    # Focus on only the Least Significant Bytes
-    data = list(map(lambda c: c & 0b1111_1111, data))
+    while data:
+        size = len(data)
+        max_bytes = min(size, 4)
+        is_valid = False
+        for i in range(max_bytes, 0, -1):
+            temp = data[0:i]
+            result = check_utf(temp)
+            if result:
+                data = data[max_bytes:]
+                is_valid = True
+                break
+        if not is_valid:
+            return False
 
-    size = len(data)
-    max_bytes = min(size, 4)
-    for i in range(max_bytes, 0, -1):
-        if try_to_validate(data, i):
-            return True
-
-    return False
+    return True

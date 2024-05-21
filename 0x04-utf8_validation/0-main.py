@@ -39,3 +39,8 @@ print(validUTF8(data))
 # empty dataset valid
 data = []
 print(validUTF8(data))
+
+# 4,3 Bytes valid
+data = [0b11110000, 0b10000000, 0b10000000,
+        0b10000000, 0b11100000, 0b10000000, 0b10000000]
+print(validUTF8(data))
