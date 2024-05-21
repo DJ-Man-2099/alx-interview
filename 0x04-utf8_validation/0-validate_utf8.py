@@ -68,8 +68,11 @@ def validUTF8(data: List[int]) -> bool:
     if not data:
         return True
 
+    if not isinstance(data, list)\
+            or not (any(map(lambda c: isinstance(c, int), data))):
+        raise TypeError()
     # Focus on only the Least Significant Bytes
-    data = list(map(lambda c: int(c) & 0b1111_1111, data))
+    data = list(map(lambda c: c & 0b1111_1111, data))
 
     size = len(data)
     max_bytes = min(size, 4)
