@@ -66,9 +66,8 @@ def try_to_validate(data: List[int], bytes_in_char: int) -> bool:
 
 def validUTF8(data: List[int]) -> bool:
     """determines if a given data set represents a valid UTF-8 encoding"""
-    size = len(data)
-    max = min(size, 4)
-    for i in range(max, 0, -1):
+    max_bytes = len(data) if len(data) < 4 else 4
+    for i in range(max_bytes, 0, -1):
         if try_to_validate(data, i):
             return True
 
