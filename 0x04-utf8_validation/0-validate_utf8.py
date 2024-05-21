@@ -64,7 +64,7 @@ def validUTF8(data: List[int]) -> bool:
             temp = data[0:i]
             result = check_utf(temp)
             if result:
-                data = data[max_bytes:]
+                data = data[i:]
                 is_valid = True
                 break
         if not is_valid:
