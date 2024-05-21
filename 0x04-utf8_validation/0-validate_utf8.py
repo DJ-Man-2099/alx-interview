@@ -18,7 +18,7 @@ def other_chars(c: int) -> bool:
 
 
 len_2 = [
-    lambda c: c >> 5 == 6,
+    lambda c: c >> 5 == 0b110,
     *([other_chars]*1)
 ]
 
