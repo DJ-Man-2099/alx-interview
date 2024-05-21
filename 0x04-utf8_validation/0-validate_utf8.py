@@ -78,17 +78,9 @@ def len_1(c: int) -> bool: return c >> 7 == 0
 
 def validUTF8(data: List[int]) -> bool:
     """tries to validate each case"""
-    # number_of_chars = int(math.ceil(len(data)/bytes_in_char))
-    # check other chars
-    # check last char
-    # print(f"case number of bytes: {bytes_in_char}")
-    # chars = []
-    # data = list(reversed(data))
-    # for i in range(number_of_chars):
-    #     chars.append(data[i*bytes_in_char:(i+1)*bytes_in_char])
     for char in data:
-        result = len_1(char)
-        if result is False:
+        # result = len_1(char)
+        if char >= 256:
             return False
 
     return True
