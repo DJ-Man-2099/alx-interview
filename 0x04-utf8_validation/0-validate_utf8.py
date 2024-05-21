@@ -52,7 +52,9 @@ def check_utf(chars: List) -> bool:
 def validUTF8(data: List[int]) -> bool:
     """determines if a given data set represents a valid UTF-8 encoding"""
     if not data:
-        return False
+        return True
+
+    data = list(map(lambda c: c & 0b1111_1111, data))
 
     while data:
         size = len(data)
