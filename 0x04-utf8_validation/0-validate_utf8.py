@@ -2,8 +2,8 @@
 """ Task 1 """
 
 
-# from functools import reduce
-# import math
+from functools import reduce
+import math
 from typing import List
 
 
