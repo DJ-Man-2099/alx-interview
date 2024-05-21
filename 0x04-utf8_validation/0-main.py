@@ -32,5 +32,6 @@ print(validUTF8(data))
 data = [0b11000010, 0b10000010]
 print(validUTF8(data))
 
-data = [0b11000010, 0b11000010]
+# 2 Bytes valid
+data = []
 print(validUTF8(data))
