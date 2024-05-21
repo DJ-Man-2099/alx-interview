@@ -53,7 +53,6 @@ def try_to_validate(data: List[int], bytes_in_char: int) -> bool:
     """tries to validate each case"""
     number_of_chars = int(math.ceil(len(data)/bytes_in_char))
     chars = []
-    # data = list(reversed(data))
     for i in range(number_of_chars):
         chars.append(data[i*bytes_in_char:(i+1)*bytes_in_char])
     for char in chars:
@@ -64,26 +63,18 @@ def try_to_validate(data: List[int], bytes_in_char: int) -> bool:
     return True
 
 
-def validUTF8(data: List[int]) -> bool:
+def validUTF8(data):
     """determines if a given data set represents a valid UTF-8 encoding"""
     if not data:
         return True
 
-    size = len(data)
     # Focus on only the Least Significant Bytes
     data = list(map(lambda c: c & 0b1111_1111, data))
+
+    size = len(data)
     max_bytes = min(size, 4)
     for i in range(max_bytes, 0, -1):
         if try_to_validate(data, i):
             return True
 
     return False
-
-# def validUTF8(data: List[int]) -> bool:
-#     """case: each char is 1 byte"""
-#     for char in data:
-#         result = len_1(char)
-#         if result is False:
-#             return False
-
-#     return True
