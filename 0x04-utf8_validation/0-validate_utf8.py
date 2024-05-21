@@ -7,7 +7,7 @@
 from typing import List
 
 
-def len_1(c: int) -> bool: return c >> 7 == 0
+# def len_1(c: int) -> bool: return c >> 7 == 0
 
 
 # def other_chars(c: int) -> bool: return c >> 6 == 2
