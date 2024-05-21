@@ -28,7 +28,7 @@ len_3 = [
 ]
 
 len_4 = [
-    lambda c: c >> 3 == 30,
+    lambda c: c >> 3 == 0b11110,
     *([other_chars]*3)
 ]
 
