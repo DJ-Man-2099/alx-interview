@@ -14,7 +14,7 @@ def len_1(c: int) -> bool:
 
 def other_chars(c: int) -> bool:
     """checks other cases"""
-    return c >> 6 == 2
+    return c >> 6 == 0b10
 
 
 len_2 = [
