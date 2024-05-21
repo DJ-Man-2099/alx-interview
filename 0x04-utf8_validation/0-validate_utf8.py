@@ -58,7 +58,7 @@ def try_to_validate(data: List[int], bytes_in_char: int) -> bool:
     """tries to validate each case"""
     number_of_chars = int(math.ceil(len(data)/bytes_in_char))
     chars = []
-    data = list(reversed(data))
+    # data = list(reversed(data))
     for i in range(number_of_chars):
         chars.append(data[i*bytes_in_char:(i+1)*bytes_in_char])
     for char in chars:
