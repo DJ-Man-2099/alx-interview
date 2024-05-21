@@ -71,7 +71,6 @@ def validUTF8(data: List[int]) -> bool:
 
     size = len(data)
     data = list(map(lambda c: c & 0b1111_1111, data))
-    print(data)
     max_bytes = min(size, 4)
     for i in range(max_bytes, 0, -1):
         if try_to_validate(data, i):
