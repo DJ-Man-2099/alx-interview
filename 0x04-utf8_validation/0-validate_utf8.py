@@ -7,7 +7,9 @@
 from typing import List
 
 
-# def len_1(c: int) -> bool: return c >> 7 == 0
+def len_1(c: int) -> bool:
+    """checks first case"""
+    return c >> 7 == 0
 
 
 # def other_chars(c: int) -> bool: return c >> 6 == 2
@@ -77,10 +79,10 @@ from typing import List
 #     return False
 
 def validUTF8(data: List[int]) -> bool:
-    """tries to validate each case"""
+    """case: each char is 1 byte"""
     for char in data:
-        # result = len_1(char)
-        if char >= 128:
+        result = len_1(char)
+        if result is False:
             return False
 
     return True
