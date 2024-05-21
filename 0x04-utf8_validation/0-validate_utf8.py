@@ -36,15 +36,15 @@ len_4 = [
 def check_utf(chars: List) -> bool:
     """checks each char separately"""
     chars_functions = []
-    match len(chars):
-        case 1:
-            return len_1(chars[0])
-        case 2:
-            chars_functions = list(zip(chars, len_2))
-        case 3:
-            chars_functions = list(zip(chars, len_3))
-        case 4:
-            chars_functions = list(zip(chars, len_4))
+    size = len(chars)
+    if size == 1:
+        return len_1(chars[0])
+    if size == 2:
+        chars_functions = list(zip(chars, len_2))
+    if size == 3:
+        chars_functions = list(zip(chars, len_3))
+    if size == 4:
+        chars_functions = list(zip(chars, len_4))
     answers = list(map(lambda c: c[1](c[0]), chars_functions))
     # temp = list(chars_functions)
     # print("char\t\tfunction used\t\tresult")
