@@ -3,7 +3,7 @@
 
 
 # from functools import reduce
-import math
+# import math
 from typing import List
 
 
@@ -76,18 +76,18 @@ def len_1(c: int) -> bool: return c >> 7 == 0
 
 #     return False
 
-def validUTF8(data: List[int], bytes_in_char: int = 1) -> bool:
+def validUTF8(data: List[int]) -> bool:
     """tries to validate each case"""
-    number_of_chars = int(math.ceil(len(data)/bytes_in_char))
+    # number_of_chars = int(math.ceil(len(data)/bytes_in_char))
     # check other chars
     # check last char
     # print(f"case number of bytes: {bytes_in_char}")
-    chars = []
+    # chars = []
     # data = list(reversed(data))
-    for i in range(number_of_chars):
-        chars.append(data[i*bytes_in_char:(i+1)*bytes_in_char])
-    for char in chars:
-        result = len_1(char[0])
+    # for i in range(number_of_chars):
+    #     chars.append(data[i*bytes_in_char:(i+1)*bytes_in_char])
+    for char in data:
+        result = len_1(char)
         if result is False:
             return False
 
