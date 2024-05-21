@@ -62,7 +62,7 @@ def try_to_validate(data: List[int], bytes_in_char: int) -> bool:
         chars.append(data[i*bytes_in_char:(i+1)*bytes_in_char])
     for char in chars:
         result = check_utf(char)
-        if result == False:
+        if result is False:
             return False
 
     return True
