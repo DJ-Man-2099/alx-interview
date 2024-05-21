@@ -80,7 +80,7 @@ def validUTF8(data: List[int]) -> bool:
     """tries to validate each case"""
     for char in data:
         # result = len_1(char)
-        if char > 128:
+        if char >= 128:
             return False
 
     return True
