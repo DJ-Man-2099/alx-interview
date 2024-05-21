@@ -37,5 +37,5 @@ data = [0b0101]
 print(validUTF8(data))
 
 # empty dataset valid
-data = "a"
+data = []
 print(validUTF8(data))

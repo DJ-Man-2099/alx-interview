@@ -63,13 +63,13 @@ def try_to_validate(data: List[int], bytes_in_char: int) -> bool:
     return True
 
 
-def validUTF8(data):
+def validUTF8(data: List[int]) -> bool:
     """determines if a given data set represents a valid UTF-8 encoding"""
     if not data:
         return True
 
     # Focus on only the Least Significant Bytes
-    data = list(map(lambda c: c & 0b1111_1111, data))
+    data = list(map(lambda c: int(c) & 0b1111_1111, data))
 
     size = len(data)
     max_bytes = min(size, 4)
