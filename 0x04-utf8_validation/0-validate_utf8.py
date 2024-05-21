@@ -9,26 +9,26 @@ from typing import List
 
 def len_1(c: int) -> bool:
     """checks first case"""
-    return c >> 7 == 0
+    return c >> 7 == 0b0
 
 
 def other_chars(c: int) -> bool:
     """checks other cases"""
-    return c >> 6 == 2
+    return c >> 6 == 0b10
 
 
 len_2 = [
-    lambda c: c >> 5 == 6,
+    lambda c: c >> 5 == 0b110,
     *([other_chars]*1)
 ]
 
 len_3 = [
-    lambda c: c >> 4 == 14,
+    lambda c: c >> 4 == 0b1110,
     *([other_chars]*2)
 ]
 
 len_4 = [
-    lambda c: c >> 3 == 30,
+    lambda c: c >> 3 == 0b1110,
     *([other_chars]*3)
 ]
 
