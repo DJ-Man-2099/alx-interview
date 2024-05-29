@@ -4,3 +4,4 @@
 0x04-utf8_validation/0-check_one.py
 0x04-utf8_validation/tests.py
 0x05-nqueens/test_nqueens.py
+0x05-nqueens/checker_10.py
