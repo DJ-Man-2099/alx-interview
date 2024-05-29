@@ -86,24 +86,21 @@ def get_possible_solutions(number=0, positions=[]):
     return build_solution(positions, number)
 
 
-def build_solution(positions=[], number=0):
-    """build a solution"""
-    positions_len = len(positions)
-    if not positions_len:
-        return
-    if number == 1:
-        return list(map(lambda p: [p], positions))
+def build_solution(positions=[], number=0, solution=[]):
+    """build a solution using backtracking"""
+    if number == 0:
+        # If we've placed all queens, return the solution
+        return [solution]
+
     solutions = []
-    for i in range(positions_len-number+1):
-        # step 1
-        start = positions[i]
-        # step 2 (to change with recursive call)
-        other = build_solution(positions[i:], number-1)
-        # step 3 (to change with recursive call)
-        if other:
-            for s in other:
-                if all(map(lambda p: is_not_attacking(start, p), s)):
-                    solutions.append([start, *s])
+    for i in range(len(positions)):
+        # Check if this position is safe
+        if all(map(lambda p: is_not_attacking(positions[i], p), solution)):
+            # If it's safe, place a queen at this position and recurse
+            new_solutions = build_solution(
+                positions[i+1:], number-1, solution + [positions[i]])
+            solutions.extend(new_solutions)
+
     return solutions
 
 
