@@ -29,6 +29,10 @@ class Position():
         """String Representation"""
         return f"[{self.x}, {self.y}]"
 
+    def toList(self):
+        """to List for testing"""
+        return [self.x, self.y]
+
     def __repr__(self):
         """String Representation"""
         return f"[{self.x}, {self.y}]"
@@ -49,8 +53,11 @@ def nqueens(size=""):
     # print(f"number of solutions: {len(all_positions)}")
     possible_solutions = get_possible_solutions(int_size, all_positions)
     # possible_solutions = all_positions
+    # list_pos_sol = []
     for solution in possible_solutions:
         print(solution)
+    #     list_pos_sol.append(list(map(lambda p: p.toList(), solution)))
+    # return list_pos_sol
 
 
 def get_all_positions(size=0):
@@ -68,37 +75,59 @@ def get_possible_solutions(number=0, positions=[]):
     """
     returns list of possible solutions
     """
-    valid_solutions = []
-    # create all possible solutions
-    # Replace this with built in function
-    all_solutions = get_all_combinations(positions, number)
-    for solution in all_solutions:
-        if check_if_valid_solution(solution):
-            valid_solutions.append(list(solution))
-    return valid_solutions
+    # Create all possible solutions
+    # valid_solutions = []
+    # all_solutions = get_all_combinations(positions, number)
+    # for solution in all_solutions:
+    #     if check_if_valid_solution(solution):
+    #         valid_solutions.append(list(solution))
+
+    # Create solution step by step
+    return build_solution(positions, number)
 
 
-def get_all_combinations(base=[], size=0):
-    """create all possible solutions"""
-    # size is more than no of elements
-    # only one combination
-    base_size = len(base)
-    if size >= base_size:
-        return [base]
-    combinations = []
-    # base case:
-    # len(base) = 2, size = 1
-    if base_size > 1:
-        for i in range(base_size-size+1):
-            if size == 1:
-                combinations.append(base[i:i+size])
-            else:
-                rest = base[i+1:]
-                temp = [base[i]]
-                for c in get_all_combinations(rest, size - 1):
-                    combinations.append(temp + c)
+def build_solution(positions=[], number=0):
+    """build a solution"""
+    positions_len = len(positions)
+    if not positions_len:
+        return
+    if number == 1:
+        return list(map(lambda p: [p], positions))
+    solutions = []
+    for i in range(positions_len-number+1):
+        # step 1
+        start = positions[i]
+        # step 2 (to change with recursive call)
+        other = build_solution(positions[i:], number-1)
+        # step 3 (to change with recursive call)
+        if other:
+            for s in other:
+                if all(map(lambda p: is_not_attacking(start, p), s)):
+                    solutions.append([start, *s])
+    return solutions
 
-    return combinations
+
+# def get_all_combinations(base=[], size=0):
+#     """create all possible solutions"""
+#     # size is more than no of elements
+#     # only one combination
+#     base_size = len(base)
+#     if size >= base_size:
+#         return [base]
+#     combinations = []
+#     # base case:
+#     # len(base) = 2, size = 1
+#     if base_size > 1:
+#         for i in range(base_size-size+1):
+#             if size == 1:
+#                 combinations.append(base[i:i+size])
+#             else:
+#                 rest = base[i+1:]
+#                 temp = [base[i]]
+#                 for c in get_all_combinations(rest, size - 1):
+#                     combinations.append(temp + c)
+
+#     return combinations
 
 
 def is_not_attacking(pos_1, pos_2):
@@ -132,3 +161,8 @@ if __name__ == '__main__':
     nqueens(sys.argv[1])
     # check_if_valid_solution(valid_solutions[1])
     # print(get_all_combinations([1, 2, 3, 4], 3))
+    # sols = build_solution(
+    #     list(map(lambda p: Position(p[0], p[1]), [[0, 1], [1, 3], [2, 0], [3, 2], [0, 0]])), 4)
+    # if sols:
+    #     for s in sols:
+    #         print(s)
