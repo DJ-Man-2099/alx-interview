@@ -159,7 +159,8 @@ if __name__ == '__main__':
     # check_if_valid_solution(valid_solutions[1])
     # print(get_all_combinations([1, 2, 3, 4], 3))
     # sols = build_solution(
-    #     list(map(lambda p: Position(p[0], p[1]), [[0, 1], [1, 3], [2, 0], [3, 2], [0, 0]])), 4)
+    #     list(map(lambda p: Position(p[0], p[1]),
+    # [[0, 1], [1, 3], [2, 0], [3, 2], [0, 0]])), 4)
     # if sols:
     #     for s in sols:
     #         print(s)
