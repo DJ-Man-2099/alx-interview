@@ -96,9 +96,13 @@ def build_solution(positions=[], number=0, solution=[]):
     for i in range(len(positions)):
         # Check if this position is safe
         if all(map(lambda p: is_not_attacking(positions[i], p), solution)):
+            possible_positions = list(filter(
+                lambda p: is_not_attacking(positions[i], p),
+                positions[i+1:]))
+
             # If it's safe, place a queen at this position and recurse
             new_solutions = build_solution(
-                positions[i+1:], number-1, solution + [positions[i]])
+                possible_positions, number-1, solution + [positions[i]])
             solutions.extend(new_solutions)
 
     return solutions
