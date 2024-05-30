@@ -83,27 +83,33 @@ def get_possible_solutions(number=0, positions=[]):
     #         valid_solutions.append(list(solution))
 
     # Create solution step by step
-    return build_solution(positions, number)
+    solution = build_solution(number)
+    solution = [[[i, v] for i, v in enumerate(s)] for s in solution]
+    return solution
 
 
-def build_solution(positions=[], number=0, solution=[]):
+def is_not_attacking(position, occupied_positions, current_row):
+    for i in range(current_row):
+        if occupied_positions[i] == position or \
+                occupied_positions[i] - i == position - current_row or \
+                occupied_positions[i] + i == position + current_row:
+            return False
+    return True
+
+
+def build_solution(n, current_row=0, occupied_positions=[]):
     """build a solution using backtracking"""
-    if number == 0:
+    if current_row == n:
         # If we've placed all queens, return the solution
-        return [solution]
+        return [occupied_positions]
 
     solutions = []
-    for i in range(len(positions)):
+    for col in range(n):
         # Check if this position is safe
-        if all(map(lambda p: is_not_attacking(positions[i], p), solution)):
-            possible_positions = list(filter(
-                lambda p: is_not_attacking(positions[i], p),
-                positions[i+1:]))
-
+        if is_not_attacking(col, occupied_positions, current_row):
             # If it's safe, place a queen at this position and recurse
-            new_solutions = build_solution(
-                possible_positions, number-1, solution + [positions[i]])
-            solutions.extend(new_solutions)
+            solutions.extend(build_solution(
+                n, current_row + 1, occupied_positions + [col]))
 
     return solutions
 
@@ -131,15 +137,15 @@ def build_solution(positions=[], number=0, solution=[]):
 #     return combinations
 
 
-def is_not_attacking(pos_1, pos_2):
-    """Check if the 2 positions aren't attacking"""
-    is_on_line = pos_1.is_on_same_line(pos_2)
-    is_on_diagonal = pos_1.is_on_same_diagonal(pos_2)
-    # print(f"{pos_1} is on same line as {pos_2}: {is_on_line}")
-    # print(f"{pos_1} is on same diagonal as {pos_2}: {is_on_diagonal}")
-    if is_on_line or is_on_diagonal:
-        return False
-    return True
+# def is_not_attacking(pos_1, pos_2):
+#     """Check if the 2 positions aren't attacking"""
+#     is_on_line = pos_1.is_on_same_line(pos_2)
+#     is_on_diagonal = pos_1.is_on_same_diagonal(pos_2)
+#     # print(f"{pos_1} is on same line as {pos_2}: {is_on_line}")
+#     # print(f"{pos_1} is on same diagonal as {pos_2}: {is_on_diagonal}")
+#     if is_on_line or is_on_diagonal:
+#         return False
+#     return True
 
 
 def check_if_valid_solution(
