@@ -49,9 +49,9 @@ def nqueens(size=""):
     if int_size < 4:
         print("N must be at least 4")
         sys.exit(1)
-    all_positions = get_all_positions(int_size)
+    # all_positions = get_all_positions(int_size)
     # print(f"number of solutions: {len(all_positions)}")
-    possible_solutions = get_possible_solutions(int_size, all_positions)
+    possible_solutions = get_possible_solutions(int_size)
     # possible_solutions = all_positions
     # list_pos_sol = []
     for solution in possible_solutions:
@@ -60,18 +60,18 @@ def nqueens(size=""):
     # return list_pos_sol
 
 
-def get_all_positions(size=0):
-    """
-    returns list of all positions
-    """
-    positions = []
-    for i in range(size):
-        for j in range(size):
-            positions.append(Position(i, j))
-    return positions
+# def get_all_positions(size=0):
+#     """
+#     returns list of all positions
+#     """
+#     positions = []
+#     for i in range(size):
+#         for j in range(size):
+#             positions.append(Position(i, j))
+#     return positions
 
 
-def get_possible_solutions(number=0, positions=[]):
+def get_possible_solutions(number=0):
     """
     returns list of possible solutions
     """
@@ -83,33 +83,27 @@ def get_possible_solutions(number=0, positions=[]):
     #         valid_solutions.append(list(solution))
 
     # Create solution step by step
-    solution = build_solution(number)
-    solution = [[[i, v] for i, v in enumerate(s)] for s in solution]
-    return solution
+    return build_solution(number=number)
 
 
-def is_not_attacking(position, occupied_positions, current_row):
-    for i in range(current_row):
-        if occupied_positions[i] == position or \
-                occupied_positions[i] - i == position - current_row or \
-                occupied_positions[i] + i == position + current_row:
-            return False
-    return True
-
-
-def build_solution(n, current_row=0, occupied_positions=[]):
+def build_solution(number=0, solution=[]):
     """build a solution using backtracking"""
-    if current_row == n:
+    current_row = len(solution)
+    if number == current_row:
         # If we've placed all queens, return the solution
-        return [occupied_positions]
+        return [solution]
 
     solutions = []
-    for col in range(n):
+    for i in range(number):
+        possible_position = Position(current_row, i)
         # Check if this position is safe
-        if is_not_attacking(col, occupied_positions, current_row):
+        # print(
+        # f"Checking position: {possible_position}, for solution: {solution}")
+        if all(map(lambda p: is_not_attacking(possible_position, p), solution)):
             # If it's safe, place a queen at this position and recurse
-            solutions.extend(build_solution(
-                n, current_row + 1, occupied_positions + [col]))
+            new_solutions = build_solution(
+                number, solution + [possible_position])
+            solutions.extend(new_solutions)
 
     return solutions
 
@@ -137,15 +131,15 @@ def build_solution(n, current_row=0, occupied_positions=[]):
 #     return combinations
 
 
-# def is_not_attacking(pos_1, pos_2):
-#     """Check if the 2 positions aren't attacking"""
-#     is_on_line = pos_1.is_on_same_line(pos_2)
-#     is_on_diagonal = pos_1.is_on_same_diagonal(pos_2)
-#     # print(f"{pos_1} is on same line as {pos_2}: {is_on_line}")
-#     # print(f"{pos_1} is on same diagonal as {pos_2}: {is_on_diagonal}")
-#     if is_on_line or is_on_diagonal:
-#         return False
-#     return True
+def is_not_attacking(pos_1, pos_2):
+    """Check if the 2 positions aren't attacking"""
+    is_on_line = pos_1.is_on_same_line(pos_2)
+    is_on_diagonal = pos_1.is_on_same_diagonal(pos_2)
+    # print(f"{pos_1} is on same line as {pos_2}: {is_on_line}")
+    # print(f"{pos_1} is on same diagonal as {pos_2}: {is_on_diagonal}")
+    if is_on_line or is_on_diagonal:
+        return False
+    return True
 
 
 def check_if_valid_solution(
