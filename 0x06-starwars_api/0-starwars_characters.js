@@ -14,7 +14,7 @@ request(
 			const characters = movie.characters;
 			for (const char in characters) {
 				try {
-					const body = await request(characters[char]);
+					const body = (await request(characters[char])).body;
 					log(JSON.parse(body).name);
 				} catch (error) {
 					log(error);
