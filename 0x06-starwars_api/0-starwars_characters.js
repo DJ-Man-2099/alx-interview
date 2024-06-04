@@ -2,24 +2,39 @@
 const { log } = require('console');
 const request = require('request');
 
-request(
-	'https://swapi-api.alx-tools.com/api/films/' + process.argv[2],
-	async (error, response, body) => {
+const characters = [];
+
+const getAllCharacters = (url) => {
+	request(url, (error, response, body) => {
 		if (error) {
 			log(error);
 		} else if (response.statusCode !== 200) {
 			console.log('An error occured. Status code: ' + response.statusCode);
 		} else {
-			const movie = (JSON.parse(body));
-			const characters = movie.characters;
-			for (const char in characters) {
-				try {
-					const body = (await request(characters[char])).body;
-					log(JSON.parse(body).name);
-				} catch (error) {
-					log(error);
-				}
+			characters.push(...JSON.parse(body).results);
+			if (JSON.parse(body).next) {
+				getAllCharacters(JSON.parse(body).next);
+			} else {
+				request(
+					'https://swapi-api.alx-tools.com/api/films/' + process.argv[2],
+					(innerError, innerResponse, innerBody) => {
+						if (innerError) {
+							log(innerError);
+						} else if (innerResponse.statusCode !== 200) {
+							console.log('An error occured. Status code: ' + response.statusCode);
+						} else {
+							const movie = (JSON.parse(innerBody));
+							const movieCharacters = movie.characters;
+							for (const char in movieCharacters) {
+								log(characters.find(c => c.url === movieCharacters[char])
+									.name);
+							}
+						}
+					}
+				);
 			}
 		}
-	}
-);
+	});
+};
+
+getAllCharacters('https://swapi-api.alx-tools.com/api/people/');
