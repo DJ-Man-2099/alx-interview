@@ -11,14 +11,15 @@ def get_perim_single(array, x, y):
         (-1, 0)
     ]
     perimeter = 4
-    limit_x = len(array)
-    limit_y = len(array[x])
+    # limit_x = len(array)
+    # limit_y = len(array[x])
     for edge_x, edge_y in edges:
-        current_x = x + edge_x
-        current_y = y + edge_y
-        if (current_x >= 0 and current_x < limit_x
-            and current_y >= 0 and current_y < limit_y
-                and array[current_x][current_y] == 1):
+        # current_x = x + edge_x
+        # current_y = y + edge_y
+        # if (current_x >= 0 and current_x < limit_x
+        #     and current_y >= 0 and current_y < limit_y
+        #         and array[current_x][current_y] == 1):
+        if array[x + edge_x][y + edge_y] == 1:
             perimeter -= 1
 
     return perimeter
