@@ -1,0 +1,33 @@
+#!/usr/bin/python3
+""" Island Perimeter Module """
+
+
+def get_perim_single(array, x, y):
+    """ checks surroundings """
+    edges = [
+        (0, 1),
+        (1, 0),
+        (0, -1),
+        (-1, 0)
+    ]
+    perimeter = 4
+    for edge_x, edge_y in edges:
+        if array[x+edge_x][y+edge_y] == 1:
+            perimeter -= 1
+
+    return perimeter
+
+
+def island_perimeter(grid):
+    """ gets whole param """
+    perimeter = 0
+
+    len_x = len(grid)
+
+    for x in range(len_x):
+        len_y = len(grid[x])
+        for y in range(len_y):
+            if grid[x][y] == 1:
+                perimeter += get_perim_single(grid, x, y)
+
+    return perimeter
