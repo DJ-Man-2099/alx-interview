@@ -2,7 +2,7 @@
 """ Island Perimeter Module """
 
 
-def get_perim_single(array, x, y):
+def get_perim_single(grid, x, y):
     """ checks surroundings """
     edges = [
         (0, 1),
@@ -12,7 +12,14 @@ def get_perim_single(array, x, y):
     ]
     perimeter = 4
     for edge_x, edge_y in edges:
-        if array[x+edge_x][y+edge_y] == 1:
+        limit_x = len(grid)
+        limit_y = len(grid[x])
+        current_x = x+edge_x
+        current_y = y+edge_y
+        x_within_limit = current_x >= 0 and current_x < limit_x
+        y_within_limit = current_y >= 0 and current_y < limit_y
+        if ((x_within_limit and y_within_limit)
+                and grid[current_x][current_y] == 1):
             perimeter -= 1
 
     return perimeter
