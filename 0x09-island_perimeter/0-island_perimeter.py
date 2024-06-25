@@ -18,7 +18,7 @@ def get_perim_single(grid, x, y):
         current_y = y+edge_y
         x_within_limit = current_x >= 0 and current_x < limit_x
         y_within_limit = current_y >= 0 and current_y < limit_y
-        if ((x_within_limit and y_within_limit)
+        if (x_within_limit and y_within_limit
                 and grid[current_x][current_y] == 1):
             perimeter -= 1
 
