@@ -11,9 +11,9 @@ def get_perim_single(array, x, y):
         (-1, 0)
     ]
     perimeter = 4
+    limit_x = len(array)
+    limit_y = len(array[x])
     for edge_x, edge_y in edges:
-        limit_x = len(array)
-        limit_y = len(array[x])
         current_x = x+edge_x
         current_y = y+edge_y
         x_within_limit = current_x >= 0 and current_x < limit_x
