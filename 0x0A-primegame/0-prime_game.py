@@ -1,44 +1,40 @@
 #!/usr/bin/python3
-"""
-Define isWineer function, a solution to the Prime Game problem
-"""
+""" Prime Game Module """
+
+MARIA = 0
+BEN = 1
 
 
-def primes(n):
-    """Return list of prime numbers between 1 and n inclusive
-       Args:
-        n (int): upper boundary of range. lower boundary is always 1
-    """
-    prime = []
-    sieve = [True] * (n + 1)
-    for p in range(2, n + 1):
-        if (sieve[p]):
-            prime.append(p)
-            for i in range(p, n + 1, p):
-                sieve[i] = False
-    return prime
+def playRound(num):
+    """ determines round winner """
+    turn_player = MARIA
+    numbers = list(range(2, num+1))
+    while numbers:
+        max_num = numbers[-1]
+        current_prime = numbers[0]
+        while current_prime <= max_num:
+            index = numbers.index(current_prime)
+            if index > -1:
+                numbers.pop(index)
+            current_prime += current_prime
+        turn_player = BEN if turn_player == MARIA else MARIA
+    return BEN if turn_player == MARIA else MARIA
 
 
 def isWinner(x, nums):
-    """
-    Determines winner of Prime Game
-    Args:
-        x (int): no. of rounds of game
-        nums (int): upper limit of range for each round
-    Return:
-        Name of winner (Maria or Ben) or None if winner cannot be found
-    """
-    if x is None or nums is None or x == 0 or nums == []:
+    """ determines winner """
+    if x is None or nums is None or len(nums) != x:
         return None
-    Maria = Ben = 0
+    ben_wins = 0
+    maria_wins = 0
     for i in range(x):
-        prime = primes(nums[i])
-        if len(prime) % 2 == 0:
-            Ben += 1
+        winner = playRound(nums[i])
+        if winner == BEN:
+            ben_wins += 1
         else:
-            Maria += 1
-    if Maria > Ben:
-        return 'Maria'
-    elif Ben > Maria:
-        return 'Ben'
+            maria_wins += 1
+    if ben_wins > maria_wins:
+        return "Ben"
+    elif ben_wins < maria_wins:
+        return "Maria"
     return None
