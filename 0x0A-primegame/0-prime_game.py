@@ -7,12 +7,12 @@ BEN = 1
 
 def playRound(num):
     """ determines round winner """
-    numbers = list(range(2, num+1))
+    numbers = list(range(num+1))
     primes = []
-    for i in range(num - 1):
+    for i in range(2, num + 1):
         if numbers[i] != 0:
             primes.append(numbers[i])
-            for o_i in range(i * 2, num - 1, numbers[i]):
+            for o_i in range(i * 2, num + 1, i):
                 numbers[o_i] = 0
     return BEN if len(primes) % 2 == 0 else MARIA
 
