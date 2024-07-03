@@ -20,19 +20,19 @@ def playRound(num):
     return BEN if turn_player == MARIA else MARIA
 
 
-def primes(n):
-    """Return list of prime numbers between 1 and n inclusive
-       Args:
-        n (int): upper boundary of range. lower boundary is always 1
-    """
-    prime = []
-    sieve = [True] * (n + 1)
-    for p in range(2, n + 1):
-        if (sieve[p]):
-            prime.append(p)
-            for i in range(p, n + 1, p):
-                sieve[i] = False
-    return prime
+# def primes(n):
+#     """Return list of prime numbers between 1 and n inclusive
+#        Args:
+#         n (int): upper boundary of range. lower boundary is always 1
+#     """
+#     prime = []
+#     sieve = [True] * (n + 1)
+#     for p in range(2, n + 1):
+#         if (sieve[p]):
+#             prime.append(p)
+#             for i in range(p, n + 1, p):
+#                 sieve[i] = False
+#     return prime
 
 
 def isWinner(x, nums):
@@ -42,13 +42,13 @@ def isWinner(x, nums):
     ben_wins = 0
     maria_wins = 0
     for i in range(x):
-        number_of_primes = len(primes(nums[i]))
+        # number_of_primes = len(primes(nums[i]))
         winner = playRound(nums[i])
         if winner == BEN:
-            print(number_of_primes % 2 == 0)
+            # print(number_of_primes % 2 == 0)
             ben_wins += 1
         else:
-            print(number_of_primes % 2 != 0)
+            # print(number_of_primes % 2 != 0)
             maria_wins += 1
     if ben_wins > maria_wins:
         return "Ben"
