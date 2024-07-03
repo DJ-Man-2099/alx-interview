@@ -23,7 +23,7 @@ def playRound(num):
 
 def isWinner(x, nums):
     """ determines winner """
-    if x is None or nums is None or x == 0 or nums == []:
+    if x is None or nums is None:
         return None
     ben_wins = 0
     maria_wins = 0
