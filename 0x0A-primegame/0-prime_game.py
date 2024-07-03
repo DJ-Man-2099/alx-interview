@@ -7,20 +7,29 @@ BEN = 1
 
 def playRound(num):
     """ determines round winner """
-    turn_player = MARIA
     numbers = list(range(2, num+1))
-    while numbers:
-        max_num = numbers[-1]
-        current_prime = current_number = numbers[0]
-        while current_number <= max_num:
-            try:
-                index = numbers.index(current_number)
-                numbers.pop(index)
-            except Exception:
-                pass
-            current_number += current_prime
-        turn_player = BEN if turn_player == MARIA else MARIA
-    return BEN if turn_player == MARIA else MARIA
+    primes = []
+    for i in range(num - 1):
+        if numbers[i] != 0:
+            primes.append(numbers[i])
+            for o_i in range(i * 2, num - 1, numbers[i]):
+                numbers[o_i] = 0
+    return BEN if len(primes) % 2 == 0 else MARIA
+
+
+# def primes(n):
+#     """Return list of prime numbers between 1 and n inclusive
+#        Args:
+#         n (int): upper boundary of range. lower boundary is always 1
+#     """
+#     prime = []
+#     sieve = [True] * (n + 1)
+#     for p in range(2, n + 1):
+#         if (sieve[p]):
+#             prime.append(p)
+#             for i in range(p, n + 1, p):
+#                 sieve[i] = False
+#     return prime
 
 
 def isWinner(x, nums):
@@ -32,8 +41,10 @@ def isWinner(x, nums):
     for i in range(x):
         winner = playRound(nums[i])
         if winner == BEN:
+            # print("Ben Wins")
             ben_wins += 1
         else:
+            # print("Maria Wins")
             maria_wins += 1
     if ben_wins > maria_wins:
         return "Ben"
