@@ -11,12 +11,14 @@ def playRound(num):
     numbers = list(range(2, num+1))
     while numbers:
         max_num = numbers[-1]
-        current_prime = numbers[0]
-        while current_prime <= max_num:
-            index = numbers.index(current_prime)
-            if index > -1:
+        current_prime = current_number = numbers[0]
+        while current_number <= max_num:
+            try:
+                index = numbers.index(current_number)
                 numbers.pop(index)
-            current_prime += current_prime
+            except Exception:
+                pass
+            current_number += current_prime
         turn_player = BEN if turn_player == MARIA else MARIA
     return BEN if turn_player == MARIA else MARIA
 
