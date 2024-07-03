@@ -8,16 +8,15 @@ BEN = 1
 def playRound(num):
     """ determines round winner """
     turn_player = MARIA
-    numbers = list(range(2, num))
+    numbers = list(range(2, num+1))
     while numbers:
         max_num = numbers[-1]
         current_prime = numbers[0]
-        if current_prime is not None:
-            while current_prime <= max_num:
-                index = numbers.index(current_prime)
-                if index > -1:
-                    numbers.pop(index)
-                current_prime += current_prime
+        while current_prime <= max_num:
+            index = numbers.index(current_prime)
+            if index > -1:
+                numbers.pop(index)
+            current_prime += current_prime
         turn_player = BEN if turn_player == MARIA else MARIA
     return BEN if turn_player == MARIA else MARIA
 
